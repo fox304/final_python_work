@@ -1,6 +1,6 @@
 import logging
 
-FORMAT = '{levelname:<18} - {asctime}.\n В модуле "{name}" ' \
+FORMAT = '{levelname:<10} - {asctime}.\n В модуле "{name}" ' \
          'в строке {lineno:03d} функция "{funcName}()\n" ' \
          'в {created} секунд записала сообщение:\n {msg}\n'
 logging.basicConfig(filename="logs.log",
@@ -13,13 +13,13 @@ logger = logging.getLogger(__name__)
 
 
 class Animal:
-    def __init__(self,name):
-        logger.info(f"содано животное  {name}")
+    def __init__(self, name):
+        logger.info(f"создано животное  {name}")
         self.name = name
 
 
 class Bird(Animal):
-    def __init__(self,name,wingspan):
+    def __init__(self, name, wingspan):
         super().__init__(name)
         self.wingspan = int(wingspan)
 
@@ -39,7 +39,7 @@ class Fish(Animal):
 
 
 class Mammal(Animal):
-    def __init__(self,name,weight):
+    def __init__(self, name, weight):
         super().__init__(name)
         self.weight = weight
 
@@ -52,8 +52,8 @@ class Mammal(Animal):
 class AnimalFactory:
 
     @staticmethod
-    def create_animal(animal_type,*args):
-        list_types_animals = ('Bird','Fish','Mammal')
+    def create_animal(animal_type, *args):
+        list_types_animals = ('Bird', 'Fish', 'Mammal')
         if animal_type not in list_types_animals:
             logger.error(f"Такие виды животных как {animal_type} здесь не водятся")
             raise ValueError("Недопустимый тип животного")
@@ -63,14 +63,16 @@ class AnimalFactory:
         return new_instance
 
 
+def print_():
+    print(f"Длина крыла у птички {animal1.wing_length()}")
+    print(f"Это {animal2.depth()} ")
+    print(f"Размерчик этой твари  {animal3.category()} ")
+
+
 # Создание экземпляров животных
 animal1 = AnimalFactory.create_animal('Bird','Орел',200)
 animal2 = AnimalFactory.create_animal('Fish','Лосось',50)
 animal3 = AnimalFactory.create_animal('Mammal','Слон',5000)
 
-# Вывод результатов
-print(animal1.wing_length())
-print(animal2.depth())
-print(animal3.category())
-
-#
+if __name__ == '__main__':
+    print_()
